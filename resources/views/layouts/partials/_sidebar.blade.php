@@ -31,14 +31,31 @@
               <p>Murid</p>
           </a>
           </li>                
-          <li class="nav-item">
-          <a href="{{route('studentclass.index')}}" class="nav-link @if ($aktif == 'class'){{'active'}}@endif"">
-              <i class="nav-icon fas fa-school"></i>
-              <p>Kelas</p>
-          </a>
-          </li>                
-          <li class="nav-item has-treeview">
+          <li class="nav-item  has-treeview @if ($aktif == 'class' ||$aktif == 'subclass' ){{'menu-open'}}@endif">
             <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-school"></i>
+              <p>
+                Manajemen Kelas
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('studentclass.index')}}" class="nav-link @if ($aktif == 'class'){{'active'}}@endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Kelas</p>
+                </a>
+              </li>              
+              <li class="nav-item">
+                <a href="{{route('studentsubclass.index')}}" class="nav-link @if ($aktif == 'subclass'){{'active'}}@endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sub Kelas</p>
+                </a>
+              </li>              
+            </ul>
+          </li>                
+          <li class="nav-item has-treeview"> 
+            <a href="#" class="nav-link">           
               <i class="nav-icon fas fa-book-reader"></i>
               <p>
                 Manajemen Buku

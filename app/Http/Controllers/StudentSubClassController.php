@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\StudentClass;
 use App\Models\SubClass;
 use Illuminate\Http\Request;
 
-class StudentClassController extends Controller
+class StudentSubClassController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +14,10 @@ class StudentClassController extends Controller
      */
     public function index()
     {
-        return view('student_class.index', [
-            'aktif' => 'class',
+        return view('student_subclass.index', [
+            'aktif' => 'subclass',
             'title' => 'Kelas',
-            'classes' => StudentClass::orderBy('name', 'asc')->get(),
+            'subClasses' => SubClass::orderBy('name', 'asc')->get(),
         ]);
     }
 
@@ -29,6 +28,7 @@ class StudentClassController extends Controller
      */
     public function create()
     {
+        //
     }
 
     /**
@@ -42,17 +42,17 @@ class StudentClassController extends Controller
         $this->validate($request, [
             'name' => 'required'
         ]);
-        StudentClass::create($request->all());
-        return redirect()->route('studentclass.index')->withSuccess("Berhasil menambahkan kelas: $request->name");
+        SubClass::create($request->all());
+        return redirect()->route('studentsubclass.index')->withSuccess("Berhasil menambah sub kelas: $request->name");
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\StudentClass  $studentClass
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(StudentClass $studentClass)
+    public function show($id)
     {
         //
     }
@@ -60,10 +60,10 @@ class StudentClassController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\StudentClass  $studentClass
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(StudentClass $studentClass)
+    public function edit($id)
     {
         //
     }
@@ -72,34 +72,34 @@ class StudentClassController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\StudentClass  $studentClass
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $studentClass = StudentClass::where('id', $id)->first();
+        $studentSubClass = SubClass::where('id', $id)->first();
         $this->validate($request, [
             'name' => 'required',
         ]);
 
-        $studentClass->update([
+        $studentSubClass->update([
             'name' => $request->name
         ]);
 
-        return redirect()->route('studentclass.index')->withSuccess("Berhasil mengubah kelas: $request->name");
+        return redirect()->route('studentsubclass.index')->withSuccess("Berhasil mengubah sub kelas: $request->name");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\StudentClass  $studentClass
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $studentClass = StudentClass::where('id', $id)->first();
-        $name = $studentClass->name;
-        $studentClass->delete();
-        return redirect()->route('studentclass.index')->withSuccess("Berhasil menghapus kelas: $name");
+        $studentSubClass = SubClass::where('id', $id)->first();
+        $name = $studentSubClass->name;
+        $studentSubClass->delete();
+        return redirect()->route('studentsubclass.index')->withSuccess("Berhasil menghapus sub kelas: $name");
     }
 }

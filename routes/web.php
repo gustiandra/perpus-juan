@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StudentClassController;
+use App\Http\Controllers\StudentSubClassController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,13 +17,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [function () {
-    return view('welcome');
+  return view('welcome');
 }]);
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/student-class', [StudentClassController::class, 'index'])->name('studentclass.index');
-    Route::get('/student-class/create', [StudentClassController::class, 'create'])->name('studentclass.create');
+  Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+  // Class
+  Route::get('/student-class', [StudentClassController::class, 'index'])->name('studentclass.index');
+  Route::post('/student-class', [StudentClassController::class, 'store'])->name('studentclass.store');
+  Route::put('/student-class/{id}', [StudentClassController::class, 'update'])->name('studentclass.update');
+  Route::delete('/student-class/{id}', [StudentClassController::class, 'destroy'])->name('studentclass.destroy');
+
+  // Sub Class
+  Route::get('/student-sub-class', [StudentSubClassController::class, 'index'])->name('studentsubclass.index');
+  Route::post('/student-sub-class', [StudentSubClassController::class, 'store'])->name('studentsubclass.store');
+  Route::put('/student-sub-class/{id}', [StudentSubClassController::class, 'update'])->name('studentsubclass.update');
+  Route::delete('/student-sub-class/{id}', [StudentSubClassController::class, 'destroy'])->name('studentsubclass.destroy');
 });
 
 

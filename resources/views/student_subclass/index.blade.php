@@ -1,20 +1,20 @@
 @extends('layouts.app')
 @section('content')
 <button type="button" title="Tambah Kelas" class="btn btn-success mb-4" data-toggle="modal" data-target="#modalTambah">
-  <i class="fas fa-plus"></i> Tambah Kelas
+  <i class="fas fa-plus"></i> Tambah Sub Kelas
 </button>
-<!-- Modal Ubah Kde buku -->
+<!-- Modal Tambah Sub Kelas -->
 <div class="modal fade" id="modalTambah" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Tambah Kelas</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Tambah Sub Kelas</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form action="{{route('studentclass.store')}}" method="POST">
+        <form action="{{route('studentsubclass.store')}}" method="POST">
           @csrf
           <div class="form-group">
             <label>Kelas</label>
@@ -47,7 +47,7 @@
       </tr>
       </thead>
       <tbody>
-        @foreach ($classes as $row)
+        @foreach ($subClasses as $row)
         <tr>          
           <td>{{$loop->iteration}}</td>
           <td>{{$row->name}}</td>
@@ -55,10 +55,10 @@
             <button type="button" title="Ubah Kelas" class="d-inline btn btn-primary btn-sm " data-toggle="modal" data-target="#modal{{$row->id}}">
               <i class="fas fa-edit"></i>
             </button>
-            <form action="{{route('studentclass.destroy', $row->id)}}" method="POST" class="d-inline">
+            <form action="{{route('studentsubclass.destroy', $row->id)}}" method="POST"  class="d-inline">
               @csrf
               @method('delete')
-              <button type="submit" title="Hapus Kelas" onclick="return confirm('Apakah yakin menghapus kelas ini?')" class="btn btn-danger btn-sm ">
+              <button type="submit" title="Hapus Kelas" onclick="return confirm('Apakah yakin menghapus sub kelas ini?')" class="d-inline btn btn-danger btn-sm ">
             </form>
               <i class="fas fa-trash"></i>
             </button>
@@ -76,7 +76,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form action="{{route('studentclass.update', $row->id)}}" method="POST">
+                <form action="{{route('studentsubclass.update', $row->id)}}" method="POST">
                   @csrf
                   @method('put')
                   <div class="form-group">
@@ -105,6 +105,7 @@
 @endsection
 
 @push('script')
+
 <script>
   $(function () {
     $("#example1").DataTable({

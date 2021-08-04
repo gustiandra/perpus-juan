@@ -14,9 +14,4 @@ class Student extends Model
     {
         return $this->belongsTo(StudentClass::class, 'class', 'id');
     }
-
-    public function subkelas()
-    {
-        return $this->belongsTo(SubClass::class, 'subclass', 'id');
-    }
 }

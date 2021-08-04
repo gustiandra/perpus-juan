@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use App\Models\StudentClass;
-use App\Models\SubClass;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -22,7 +21,6 @@ class StudentController extends Controller
             'aktif' => 'student',
             'title' => 'Murid',
             'students' => Student::latest()->get(),
-            'classes' => StudentClass::orderBy('name', 'asc')->get(),
         ]);
     }
 
@@ -33,7 +31,12 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        return view('student.form', [
+            'aktif' => 'student',
+            'title' => 'Tambah Murid',
+            'url'       => 'student.store',
+            'classes' => StudentClass::orderBy('name', 'asc')->get(),
+        ]);
     }
 
     /**
@@ -47,7 +50,8 @@ class StudentController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'class' => 'required',
-            'subclass' => 'required',
+            'no_absen' => 'required',
+            'nisn' => 'required',
             'year' => 'required'
         ]);
         Student::create($request->all());
@@ -73,7 +77,13 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        return view('student.form', [
+            'aktif'     => 'student',
+            'title'     => 'Ubah Murid',
+            'classes'   => StudentClass::orderBy('name', 'asc')->get(),
+            'url'       => 'student.update',
+            'student'   => $student,
+        ]);
     }
 
     /**
@@ -88,18 +98,20 @@ class StudentController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'class' => 'required',
-            'subclass' => 'required',
+            'no_absen' => 'required',
+            'nisn' => 'required',
             'year' => 'required'
         ]);
 
         $student->update([
             'name' => $request->name,
             'class' => $request->class,
-            'subclass' => $request->subclass,
+            'no_absen' => $request->no_absen,
+            'nisn' => $request->nisn,
             'year' => $request->year,
         ]);
 
-        return redirect()->route('student.index')->withSuccess("Berhasil mengubah kelas: $request->name");
+        return redirect()->route('student.index')->withSuccess("Berhasil mengubah murid: $request->name");
     }
 
     /**
@@ -110,6 +122,9 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        $name = $student->name;
+        $student->delete();
+
+        return redirect()->route('student.index')->withSuccess("Berhasil menghapus murid: $name");
     }
 }

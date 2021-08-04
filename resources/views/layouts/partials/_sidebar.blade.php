@@ -37,7 +37,7 @@
               <p>Kelas</p>
           </a>
           </li>                
-          <li class="nav-item has-treeview"> 
+          <li class="nav-item has-treeview @if ($aktif == 'category'){{'menu-open'}}@endif"> 
             <a href="#" class="nav-link">           
               <i class="nav-icon fas fa-book-reader"></i>
               <p>
@@ -47,7 +47,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link active">
+                <a href="{{route('category.index')}}" class="nav-link @if ($aktif == 'category'){{'active'}}@endif">
                   <i class="fas fa-th-large nav-icon"></i>
                   <p>Kategori</p>
                 </a>

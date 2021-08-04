@@ -34,7 +34,7 @@
           <td>{{$row->no_absen}}</td>
           <td>{{$row->year}}</td>
           <td class="text-center">
-            <a  href="{{route('student.edit', $row)}}" title="Ubah Murid" class="d-inline btn btn-primary btn-sm ">
+            <a  href="{{route('student.edit', $row)}}" title="Ubah Murid" class="d-inline btn btn-primary btn-sm mr-1">
               <i class="fas fa-edit"></i>
             </a>
             <form action="{{route('student.destroy', $row->id)}}" method="POST"  class="d-inline">

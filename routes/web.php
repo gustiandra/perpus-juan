@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StudentClassController;
@@ -47,13 +48,13 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-    // // Book
-    // Route::get('/book', [StudentController::class, 'index'])->name('book.index');
-    // Route::get('/book/create', [StudentController::class, 'create'])->name('book.create');
-    // Route::post('/book', [StudentController::class, 'store'])->name('book.store');
-    // Route::get('/book/{book}', [StudentController::class, 'edit'])->name('book.edit');
-    // Route::put('/book/{book}', [StudentController::class, 'update'])->name('book.update');
-    // Route::delete('/book/{book}', [StudentController::class, 'destroy'])->name('book.destroy');
+    // Book
+    Route::get('/book', [BookController::class, 'index'])->name('book.index');
+    Route::get('/book/create', [BookController::class, 'create'])->name('book.create');
+    Route::post('/book', [BookController::class, 'store'])->name('book.store');
+    Route::get('/book/{book}', [BookController::class, 'edit'])->name('book.edit');
+    Route::put('/book/{book}', [BookController::class, 'update'])->name('book.update');
+    Route::delete('/book/{book}', [BookController::class, 'destroy'])->name('book.destroy');
 });
 
 

@@ -14,7 +14,7 @@
                             <div class="col-12 col-lg-6">
                                 <div class="form-group">
                                     <label>Judul</label>
-                                    <input type="text"  name="title" class="form-control @error('title') is-invalid @enderror" value="{{old('title') ?? $book->title ?? ''}}">
+                                    <input type="text"  name="title" class="form-control @error('title') is-invalid @enderror" value="{{old('title') ?? $book->title ?? ''}}" autofocus>
                                     @error('title')
                                         <div class="invalid-feedback">{{$message}}</div>
                                     @enderror

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\BookCode;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -47,7 +48,33 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data =  $this->validate($request, [
+            'title' => 'required',
+            'isbn' => 'required',
+            'author' => 'required',
+            'publisher' => 'required',
+            'category_id' => 'required',
+            'qty' => 'required',
+            'description' => 'required',
+        ]);
+
+        $bookId = Book::create([
+            'title' => $data['title'],
+            'isbn' => $data['isbn'],
+            'author' => $data['author'],
+            'publisher' => $data['publisher'],
+            'category_id' => $data['category_id'],
+            'description' => $data['description'],
+        ]);
+        // dd($bookId);
+        for ($i = 0; $i < $data['qty']; $i++) {
+            BookCode::create([
+                'book_id' => $bookId['id'],
+                'code' => $data['isbn'] . rand(0, 999),
+            ]);
+        }
+
+        return redirect()->route('book.index');
     }
 
     /**

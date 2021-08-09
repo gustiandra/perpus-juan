@@ -21,7 +21,6 @@
         <th class="col-2">Penulis</th>
         <th class="col-1">Penerbit</th>
         <th class="col-1">Kategori</th>
-        <th class="col-1">Jumlah</th>
         <th class="col-1"></th>        
       </tr>
       </thead>

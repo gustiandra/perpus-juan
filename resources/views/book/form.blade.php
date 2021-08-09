@@ -41,15 +41,20 @@
                             <div class="col-12 col-lg-6">
                                 <div class="form-group">
                                     <label for="">Kategori</label>
-                                    <select class="form-control " name="class">
+                                    <select class="form-control @error('category_id') is-invalid @enderror" name="category_id">
                                         @foreach ($categories as $row)
                                             <option value="{{$row->id}}" 
                                             @if (isset($book)) 
                                                 @if ( $row->id == $book->category_id) {{"selected"}} @endif
                                             @endif  
-                                            >{{$row->name}}</option>
+                                            >
+                                            {{$row->name}}
+                                        </option>
                                         @endforeach
                                     </select>
+                                     @error('category_id')
+                                        <div class="invalid-feedback">{{$message}}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-12 col-lg-6">
@@ -64,14 +69,25 @@
                             <div class="col-12 col-lg-6">
                                 <div class="form-group">
                                     <label>Jumlah</label>
-                                    <input type="number"  name="qty" class="form-control @error('name') is-invalid @enderror" value="{{old('qty') ?? $book->qty ?? ''}}">
+                                    <input type="number"  name="qty" class="form-control @error('qty') is-invalid @enderror" value="{{old('qty') ?? $book->qty ?? ''}}">
+                                    @error('qty')
+                                        <div class="invalid-feedback">{{$message}}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <div class="form-group">
+                                    <label for="description">Deskripsi</label>
+                                    <textarea name="description" id="description" rows="3" class="form-control @error('description') is-invalid @enderror"></textarea>
                                     @error('qty')
                                         <div class="invalid-feedback">{{$message}}</div>
                                     @enderror
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <div class="col-12 text-right">
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
                     </form>
                 </div>
             </div>

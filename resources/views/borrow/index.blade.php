@@ -11,7 +11,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="">Murid</label>
-                                    <select class="form-control @error('student_id') is-invalid @enderror" name="student_id">
+                                    <select class="form-control select2 @error('student_id') is-invalid @enderror" name="student_id">
                                         @foreach ($students as $student)
                                             <option value="{{$student->id}}">
                                                 {{$student->name}} <--> {{ $student->kelas->name }}
@@ -26,7 +26,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="">Buku</label>
-                                    <select class="form-control @error('book_id') is-invalid @enderror" name="book_id" id="book">
+                                    <select class="form-control select2 @error('book_id') is-invalid @enderror" name="book_id" id="book">
                                         @foreach ($books as $book)
                                             <option value="{{$book->id}}">
                                                 {{$book->title}}
@@ -61,6 +61,10 @@
     
 @endsection
 
+@push('select2css')
+<link rel="stylesheet" href="{{asset('adminlte/plugins/select2/css/select2.min.css')}}">
+@endpush
+
 @push('script')
     <script>
         $('#book').change(function(){
@@ -76,17 +80,18 @@
                     $.each(res, function(id, code){
                         $("#book_code").append('<option value="'+id+'">'+code+'</option>');
                     });
-                }else{
-                // $("#kecamatan").empty();
-                // $("#desa").empty();
+                    }
                 }
-            }
             });
-        }else{
-            // $("#kecamatan").empty();
-            // $("#desa").empty();
         }      
-    });
+        });
+    </script>
+
+    <script src="{{asset('adminlte/plugins/select2/js/select2.full.min.js')}}"></script>
+    <script >
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
     </script>
     
 @endpush

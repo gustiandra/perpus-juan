@@ -37,10 +37,10 @@
             <a  href="{{route('student.edit', $row)}}" title="Ubah Murid" class="d-inline btn btn-primary btn-sm mr-1">
               <i class="fas fa-edit"></i>
             </a>
-            <form action="{{route('student.destroy', $row->id)}}" method="POST"  class="d-inline">
+            <button type="button" title="Hapus Murid" onclick="deleteConfirm('deleteForm{{ $row->id }}', '{{ $row->name }}')" class="d-inline btn btn-danger btn-sm ">
+            <form action="{{route('student.destroy', $row->id)}}" method="POST"  class="d-inline" id="deleteForm{{ $row->id }}">
               @csrf
               @method('delete')
-              <button type="submit" title="Hapus Murid" onclick="return confirm('Apakah yakin menghapus murid ini?')" class="d-inline btn btn-danger btn-sm ">
             </form>
               <i class="fas fa-trash"></i>
             </button>
@@ -56,9 +56,6 @@
 
 @endsection
 
-{{-- @push('select2css')
-<link rel="stylesheet" href="{{asset('adminlte/plugins/select2/css/select2.min.css')}}">
-@endpush --}}
 
 @push('script')
 
@@ -67,19 +64,26 @@
     $("#example1").DataTable({
       "responsive": true,
       "autoWidth": false,
-    });   
-    $("#example2").DataTable({
-      "responsive": true,
-      "autoWidth": false,
-    });   
+    });      
   });
-
 </script>
-{{-- <script src="{{asset('adminlte/plugins/select2/js/select2.full.min.js')}}"></script>
-<script>
-    $(document).ready(function() {
-    $('.select2').select2();
-});
-</script> --}}
+
+<script src="{{asset('vendor/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
+<script>              
+    window.deleteConfirm = function(formId, name)
+    {
+        Swal.fire({
+            icon: 'warning',
+            text: `Hapus Data Murid ${name}?`,
+            showCancelButton: true,
+            confirmButtonText: 'Hapus',
+            confirmButtonColor: '#e3342f',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById(formId).submit();
+            }
+        });
+    }
+</script>
     
 @endpush

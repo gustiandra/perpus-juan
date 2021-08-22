@@ -163,12 +163,12 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <form action="{{route('book-code.destroy', $bookcode->id)}}" method="POST"  class="d-inline">
+                                                <button type="button" title="Hapus Kode Buku" onclick="deleteConfirmCode('deleteCode{{ $bookcode->id }}', '{{ $bookcode->code }}')" class=" btn btn-danger btn-sm ">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                                <form action="{{route('book-code.destroy', $bookcode->id)}}" method="POST"  class="d-inline" id="deleteCode{{ $bookcode->id }}">
                                                     @csrf
                                                     @method('delete')
-                                                    <button type="submit" title="Hapus Kode Buku" onclick="return confirm('Apakah yakin menghapus kode buku ini?')" class=" btn btn-danger btn-sm ">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -189,12 +189,12 @@
             <a  href="{{route('book.edit', $row)}}" title="Ubah Buku" class="d-inline btn btn-primary btn-sm mr-1">
               <i class="fas fa-pen"></i>
             </a>
-            <form action="{{route('book.destroy', $row->id)}}" method="POST"  class="d-inline">
+            <button type="button" title="Hapus Buku" onclick="deleteConfirmBook('deleteBook{{ $row->id }}', '{{ $row->title }}')" class=" btn btn-danger btn-sm ">
+              <i class="fas fa-trash"></i>
+            </button>
+            <form action="{{route('book.destroy', $row->id)}}" method="POST"  class="d-inline" id="deleteBook{{ $row->id }}">
               @csrf
               @method('delete')
-              <button type="submit" title="Hapus Buku" onclick="return confirm('Apakah yakin menghapus buku ini?')" class=" btn btn-danger btn-sm ">
-                <i class="fas fa-trash"></i>
-              </button>
             </form>
           </td>
         </tr>
@@ -208,10 +208,6 @@
 
 @endsection
 
-{{-- @push('select2css')
-<link rel="stylesheet" href="{{asset('adminlte/plugins/select2/css/select2.min.css')}}">
-@endpush --}}
-
 @push('script')
 
 <script>
@@ -223,11 +219,38 @@
   });
 
 </script>
-{{-- <script src="{{asset('adminlte/plugins/select2/js/select2.full.min.js')}}"></script>
-<script>
-    $(document).ready(function() {
-    $('.select2').select2();
-});
-</script> --}}
+
+<script src="{{asset('vendor/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
+<script>              
+    window.deleteConfirmBook = function(formId, name)
+    {
+        Swal.fire({
+            icon: 'warning',
+            text: `Hapus Data Buku ${name}?`,
+            showCancelButton: true,
+            confirmButtonText: 'Hapus',
+            confirmButtonColor: '#e3342f',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById(formId).submit();
+            }
+        });
+    }
+
+    window.deleteConfirmCode = function(formId, name)
+    {
+        Swal.fire({
+            icon: 'warning',
+            text: `Hapus Data Kode Buku ${name}?`,
+            showCancelButton: true,
+            confirmButtonText: 'Hapus',
+            confirmButtonColor: '#e3342f',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById(formId).submit();
+            }
+        });
+    }
+</script>
     
 @endpush

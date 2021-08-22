@@ -55,10 +55,10 @@
             <button type="button" title="Ubah Kategori" class="d-inline btn btn-primary btn-sm " data-toggle="modal" data-target="#modal{{$row->id}}">
               <i class="fas fa-edit"></i>
             </button>
-            <form action="{{route('category.destroy', $row->id)}}" method="POST" class="d-inline">
+            <button type="button" title="Hapus Kategori" onclick="deleteConfirm('deleteForm{{ $row->id }}', '{{ $row->name }}')" class="btn btn-danger btn-sm ">
+            <form action="{{route('category.destroy', $row->id)}}" method="POST" class="d-inline" id="deleteForm{{ $row->id }}">
               @csrf
               @method('delete')
-              <button type="submit" title="Hapus Kategori" onclick="return confirm('Apakah yakin menghapus kategori ini?')" class="btn btn-danger btn-sm ">
             </form>
               <i class="fas fa-trash"></i>
             </button>
@@ -111,10 +111,24 @@
       "responsive": true,
       "autoWidth": false,
     });   
-    $("#example2").DataTable({
-      "responsive": true,
-      "autoWidth": false,
-    });   
   });
+</script>
+
+<script src="{{asset('vendor/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
+<script>              
+    window.deleteConfirm = function(formId, name)
+    {
+        Swal.fire({
+            icon: 'warning',
+            text: `Hapus Data Kategori Buku ${name}?`,
+            showCancelButton: true,
+            confirmButtonText: 'Hapus',
+            confirmButtonColor: '#e3342f',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById(formId).submit();
+            }
+        });
+    }
 </script>
 @endpush

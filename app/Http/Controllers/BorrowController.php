@@ -63,7 +63,7 @@ class BorrowController extends Controller
             'on_loan' => 1,
         ]);
 
-        Borrowhistory::create($request->except('book_id'));
+        Borrowhistory::create($request->all());
         $book       = $bookcode->book->title;
         $student    = Student::findOrFail($request->student_id)->name;
 
@@ -102,7 +102,7 @@ class BorrowController extends Controller
     public function update(Borrowhistory $borrow)
     {
         $borrow->update([
-            'returned_at' => now()
+            'returned_at' => now(),
         ]);
 
         $bookcode = BookCode::findOrFail($borrow->book_code_id);

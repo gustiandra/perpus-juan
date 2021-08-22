@@ -5,6 +5,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\BorrowController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StudentClassController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentSubClassController;
@@ -69,6 +70,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/borrow', [BorrowController::class, 'store'])->name('borrow.store');
     Route::put('/borrow/{borrow}', [BorrowController::class, 'update'])->name('borrow.update');
     Route::get('/get-book-code', [BorrowController::class, 'getBookCode'])->name('get-book-code');
+
+    // Laporan
+    Route::get('/buku-favorit', [ReportController::class, 'topBook'])->name('top-book');
+    Route::get('/murid-teraktif', [ReportController::class, 'topStudent'])->name('top-student');
 });
 
 

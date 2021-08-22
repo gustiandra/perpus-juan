@@ -16,6 +16,7 @@ class CreateBorrowHistoriesTable extends Migration
         Schema::create('borrow_histories', function (Blueprint $table) {
             $table->id();
             $table->integer('student_id');
+            $table->integer('book_id');
             $table->integer('book_code_id');
             $table->timestamp('returned_at')->nullable();
             $table->timestamps();

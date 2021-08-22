@@ -83,7 +83,7 @@
               </li>                   
             </ul>
           </li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview @if ($aktif == 'top-book' || $aktif == 'top-student'){{'menu-open'}}@endif">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
@@ -93,13 +93,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link ">
-                  <i class="fas fa-chart-bar nav-icon"></i>
-                  <p>Buku Sering Dipinjam</p>
+                <a href="{{ route('top-book') }}" class="nav-link @if ($aktif == 'top-book'){{'active'}}@endif">
+                  <i class="fas fa-star nav-icon"></i>
+                  <p>Buku Favorit</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index.html" class="nav-link ">
+                <a href="{{ route('top-student') }}" class="nav-link @if ($aktif == 'top-student'){{'active'}}@endif">
                   <i class="fas fa-child nav-icon"></i>
                   <p>Murid Teraktif</p>
                 </a>

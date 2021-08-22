@@ -16,4 +16,9 @@ class BookCode extends Model
     {
         return $this->belongsTo(Book::class);
     }
+
+    public function borrow()
+    {
+        return $this->hasMany(Borrowhistory::class, 'book_code_id', 'id');
+    }
 }

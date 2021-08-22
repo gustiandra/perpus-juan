@@ -17,6 +17,7 @@ class CreateBookCodesTable extends Migration
             $table->id();
             $table->integer('book_id');
             $table->string('code');
+            $table->integer('on_loan')->default(0);
             $table->timestamps();
         });
     }

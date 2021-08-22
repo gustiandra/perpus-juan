@@ -41,7 +41,7 @@ class BorrowController extends Controller
 
     public function getBookCode(Request $request)
     {
-        $book_codes = BookCode::where("book_id", $request->book_id)->pluck('code', 'id');
+        $book_codes = BookCode::where("book_id", $request->book_id)->where("on_loan", 0)->pluck('code', 'id');
         return response()->json($book_codes);
     }
 
@@ -58,8 +58,16 @@ class BorrowController extends Controller
             'book_code_id' => 'required|numeric'
         ]);
 
+        $bookcode = BookCode::findOrFail($request->book_code_id);
+        $bookcode->update([
+            'on_loan' => 1,
+        ]);
+
         Borrowhistory::create($request->except('book_id'));
-        return redirect()->route('borrow.create')->withSuccess("Berhasil melakukan peminjaman buku");
+        $book       = $bookcode->book->title;
+        $student    = Student::findOrFail($request->student_id)->name;
+
+        return redirect()->route('borrow.create')->withSuccess("Berhasil melakukan peminjaman $book oleh $student");
     }
 
     /**

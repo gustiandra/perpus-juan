@@ -67,6 +67,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/borrow', [BorrowController::class, 'index'])->name('borrow.index');
     Route::get('/borrow/create', [BorrowController::class, 'create'])->name('borrow.create');
     Route::post('/borrow', [BorrowController::class, 'store'])->name('borrow.store');
+    Route::put('/borrow/{borrow}', [BorrowController::class, 'update'])->name('borrow.update');
     Route::get('/get-book-code', [BorrowController::class, 'getBookCode'])->name('get-book-code');
 });
 

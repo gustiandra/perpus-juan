@@ -56,12 +56,12 @@
               <i class="fas fa-edit"></i>
             </button>
             <button type="button" title="Hapus Kelas" onclick="deleteConfirm('deleteForm{{ $row->id }}', '{{ $row->name }}')" class="btn btn-danger btn-sm ">
+                <i class="fas fa-trash"></i>
+            </button>
             <form action="{{route('studentclass.destroy', $row->id)}}" method="POST" class="d-inline" id="deleteForm{{ $row->id }}">
               @csrf
               @method('delete')
             </form>
-              <i class="fas fa-trash"></i>
-            </button>
 
           </td>
         </tr>

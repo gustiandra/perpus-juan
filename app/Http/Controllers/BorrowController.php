@@ -20,7 +20,7 @@ class BorrowController extends Controller
         return view('borrow.index', [
             'aktif' => 'onBorrow',
             'title' => 'Buku Sedang Dipinjam',
-            'borrows' => Borrowhistory::all(),
+            'borrows' => Borrowhistory::where('returned_at', null)->get(),
         ]);
     }
 
@@ -99,9 +99,18 @@ class BorrowController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Borrowhistory $borrow)
     {
-        //
+        $borrow->update([
+            'returned_at' => now()
+        ]);
+
+        $bookcode = BookCode::findOrFail($borrow->book_code_id);
+        $bookcode->update([
+            'on_loan' => 0,
+        ]);
+
+        return redirect()->route('borrow.index')->withSuccess("Berhasil melakukan pengembalian");
     }
 
     /**

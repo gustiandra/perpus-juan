@@ -28,7 +28,13 @@
           <td>{{ $row->bookcode->book->title }}</td>
           <td>{{ $row->bookcode->code }}</td>
           <td>
-              <button class="btn btn-primary">Pengembalian Buku</button>
+            <button type="button" onclick="confirm('confirm{{ $row->id }}', '{{ $row->student->name }}', '{{ $row->bookcode->book->title }}', '{{ $row->bookcode->code }}')" class="btn btn-primary">
+                Pengembalian Buku
+            </button>
+            <form action="{{route('borrow.update', $row->id)}}" method="POST" class="d-inline" id="confirm{{ $row->id }}">
+              @csrf
+              @method('put')
+            </form>
           </td>
           
         </tr>
@@ -55,4 +61,27 @@
 
 </script>
     
+<script src="{{asset('vendor/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
+<script>              
+    window.confirm = function(formId, name, title, code)
+    {
+        Swal.fire({
+            icon: 'question',
+            titleText: 'Pengembalian Buku ?',
+            text: ``,
+            html: `Pastikan semua data benar.<br>
+                    Murid: <b>${name}</b><br>
+                    Judul: <b>${title}</b><br>
+                    Kode: <b>${code}</b><br>
+                    `,
+            showCancelButton: true,
+            confirmButtonText: 'Ya, data sudah benar',
+            confirmButtonColor: '#3085d6',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById(formId).submit();
+            }
+        });
+    }
+</script>
 @endpush

@@ -66,20 +66,23 @@
                                     @enderror
                                 </div>
                             </div>
+                            @if (!isset($book))
+                                
                             <div class="col-12 col-lg-6">
                                 <div class="form-group">
                                     <label>Jumlah</label>
                                     <input type="number"  name="qty" class="form-control @error('qty') is-invalid @enderror" value="{{old('qty') ?? $book->qty ?? ''}}">
                                     @error('qty')
-                                        <div class="invalid-feedback">{{$message}}</div>
+                                    <div class="invalid-feedback">{{$message}}</div>
                                     @enderror
                                 </div>
                             </div>
+                            @endif
                             <div class="col-12 mb-3">
                                 <div class="form-group">
                                     <label for="description">Deskripsi</label>
-                                    <textarea name="description" id="description" rows="3" class="form-control @error('description') is-invalid @enderror"></textarea>
-                                    @error('qty')
+                                    <textarea name="description" id="description" rows="3" class="form-control @error('description') is-invalid @enderror">@if (isset($book)){{ $book->description }}@endif</textarea>
+                                    @error('description')
                                         <div class="invalid-feedback">{{$message}}</div>
                                     @enderror
                                 </div>

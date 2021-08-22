@@ -74,7 +74,7 @@ class BookController extends Controller
             ]);
         }
 
-        return redirect()->route('book.index');
+        return redirect()->route('book.index')->withSuccess("Berhasil menambahkan buku: $request->title");
     }
 
     /**
@@ -96,7 +96,13 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        return view('book.form', [
+            'title' => 'Ubah Buku',
+            'aktif' => 'book',
+            'url' => 'book.update',
+            'categories' => Category::orderBy('name', 'asc')->get(),
+            'book' => $book,
+        ]);
     }
 
     /**
@@ -108,7 +114,16 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        $data =  $this->validate($request, [
+            'title' => 'required',
+            'isbn' => 'required',
+            'author' => 'required',
+            'publisher' => 'required',
+            'category_id' => 'required',
+            'description' => 'required',
+        ]);
+        $book->update($data);
+        return redirect()->route('book.index')->withSuccess("Berhasil mengubah buku: $request->title");
     }
 
     /**
@@ -119,6 +134,9 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $bookcode = BookCode::where('book_id', $book->id)->delete();
+        $title = $book->title;
+        $book->delete();
+        return redirect()->route('book.index')->withSuccess("Berhasil menghapus buku: $title");
     }
 }

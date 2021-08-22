@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookCodeController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
@@ -55,6 +56,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/book/{book}', [BookController::class, 'edit'])->name('book.edit');
     Route::put('/book/{book}', [BookController::class, 'update'])->name('book.update');
     Route::delete('/book/{book}', [BookController::class, 'destroy'])->name('book.destroy');
+
+    Route::post('/book-code', [BookCodeController::class, 'store'])->name('book-code.store');
+    Route::delete('/book-code/{bookcode}', [BookCodeController::class, 'destroy'])->name('book-code.destroy');
+    Route::put('/book-code/{bookcode}', [BookCodeController::class, 'update'])->name('book-code.update');
 });
 
 

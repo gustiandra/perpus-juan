@@ -11,11 +11,15 @@ class ReportController extends Controller
 {
     public function topBook()
     {
-        dd(Book::withCount('borrowed')->get());
+        $books = Book::withCount('borrow')
+            ->orderBy('borrow_count', 'desc')
+            ->get();
 
-        // return view('report.bestbook', [
-        //     'books' => Borrowhistory::withCount('book_id')->get(),
-        // ]);
+        return view('report.topbook', [
+            'aktif' => 'top-book',
+            'title' => 'Buku Favorit',
+            'books' => $books,
+        ]);
     }
 
     public function topStudent()
@@ -28,6 +32,18 @@ class ReportController extends Controller
             'aktif' => 'top-student',
             'title' => 'Murid Teraktif',
             'students' => $students
+        ]);
+    }
+
+    public function report()
+    {
+
+        $reports = Borrowhistory::latest()->get();
+
+        return view('report.report', [
+            'aktif' => 'report',
+            'title' => 'Laporan',
+            'reports' => $reports
         ]);
     }
 }

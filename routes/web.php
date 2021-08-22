@@ -74,6 +74,7 @@ Route::middleware(['auth'])->group(function () {
     // Laporan
     Route::get('/buku-favorit', [ReportController::class, 'topBook'])->name('top-book');
     Route::get('/murid-teraktif', [ReportController::class, 'topStudent'])->name('top-student');
+    Route::get('/laporan', [ReportController::class, 'report'])->name('report');
 });
 
 

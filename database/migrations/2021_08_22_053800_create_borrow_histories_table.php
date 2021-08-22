@@ -18,7 +18,7 @@ class CreateBorrowHistoriesTable extends Migration
             $table->integer('student_id');
             $table->integer('book_id');
             $table->integer('book_code_id');
-            $table->timestamp('returned_at')->nullable();
+            $table->dateTime('returned_at')->nullable();
             $table->timestamps();
         });
     }

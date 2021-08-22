@@ -11,4 +11,9 @@ class BookCode extends Model
 
     protected $table = 'book_codes';
     protected $guarded = [];
+
+    public function book()
+    {
+        return $this->belongsTo(Book::class);
+    }
 }

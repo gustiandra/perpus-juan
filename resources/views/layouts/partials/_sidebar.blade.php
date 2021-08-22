@@ -70,13 +70,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('borrow.index') }}" class="nav-link @if ($aktif == 'borrow'){{'active'}}@endif">
+                <a href="{{ route('borrow.create') }}" class="nav-link @if ($aktif == 'borrow'){{'active'}}@endif">
                   <i class="fas fa-handshake nav-icon"></i>
                   <p>Pinjam Buku</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
+                <a href="{{ route('borrow.index') }}" class="nav-link @if ($aktif == 'onBorrow'){{'active'}}@endif">
                   <i class="fas fa-upload nav-icon"></i>
                   <p>Buku Sedang Dipinjam</p>
                 </a>

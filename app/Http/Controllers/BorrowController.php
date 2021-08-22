@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\BookCode;
+use App\Models\Borrowhistory;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -16,8 +17,21 @@ class BorrowController extends Controller
      */
     public function index()
     {
-
         return view('borrow.index', [
+            'aktif' => 'onBorrow',
+            'title' => 'Buku Sedang Dipinjam',
+            'borrows' => Borrowhistory::all(),
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('borrow.create', [
             'aktif' => 'borrow',
             'title' => 'Peminjaman Buku',
             'students' => Student::all(),
@@ -30,15 +44,6 @@ class BorrowController extends Controller
         $book_codes = BookCode::where("book_id", $request->book_id)->pluck('code', 'id');
         return response()->json($book_codes);
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -48,7 +53,13 @@ class BorrowController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'student_id' => 'required|numeric',
+            'book_code_id' => 'required|numeric'
+        ]);
+
+        Borrowhistory::create($request->except('book_id'));
+        return redirect()->route('borrow.create')->withSuccess("Berhasil melakukan peminjaman buku");
     }
 
     /**

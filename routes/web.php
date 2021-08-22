@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BookCodeController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BorrowController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StudentClassController;
@@ -28,38 +29,43 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Class
-    Route::get('/student-class', [StudentClassController::class, 'index'])->name('studentclass.index');
-    Route::post('/student-class', [StudentClassController::class, 'store'])->name('studentclass.store');
-    Route::put('/student-class/{id}', [StudentClassController::class, 'update'])->name('studentclass.update');
-    Route::delete('/student-class/{id}', [StudentClassController::class, 'destroy'])->name('studentclass.destroy');
+    Route::get('/kelas-murid', [StudentClassController::class, 'index'])->name('studentclass.index');
+    Route::post('/kelas-murid', [StudentClassController::class, 'store'])->name('studentclass.store');
+    Route::put('/kelas-murid/{id}', [StudentClassController::class, 'update'])->name('studentclass.update');
+    Route::delete('/kelas-murid/{id}', [StudentClassController::class, 'destroy'])->name('studentclass.destroy');
 
     // Student
-    Route::get('/student', [StudentController::class, 'index'])->name('student.index');
-    Route::get('/student/create', [StudentController::class, 'create'])->name('student.create');
-    Route::post('/student', [StudentController::class, 'store'])->name('student.store');
-    Route::get('/student/{student}', [StudentController::class, 'edit'])->name('student.edit');
-    Route::put('/student/{student}', [StudentController::class, 'update'])->name('student.update');
-    Route::delete('/student/{student}', [StudentController::class, 'destroy'])->name('student.destroy');
+    Route::get('/murid', [StudentController::class, 'index'])->name('student.index');
+    Route::get('/murid/tambah', [StudentController::class, 'create'])->name('student.create');
+    Route::post('/murid', [StudentController::class, 'store'])->name('student.store');
+    Route::get('/murid/{student}', [StudentController::class, 'edit'])->name('student.edit');
+    Route::put('/murid/{student}', [StudentController::class, 'update'])->name('student.update');
+    Route::delete('/murid/{student}', [StudentController::class, 'destroy'])->name('student.destroy');
 
     // Category
-    Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
-    Route::post('/category', [CategoryController::class, 'store'])->name('category.store');
-    Route::put('/category/{id}', [CategoryController::class, 'update'])->name('category.update');
-    Route::delete('/category/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
+    Route::get('/kategori-buku', [CategoryController::class, 'index'])->name('category.index');
+    Route::post('/kategori-buku', [CategoryController::class, 'store'])->name('category.store');
+    Route::put('/kategori-buku/{id}', [CategoryController::class, 'update'])->name('category.update');
+    Route::delete('/kategori-buku/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 
 
 
     // Book
-    Route::get('/book', [BookController::class, 'index'])->name('book.index');
-    Route::get('/book/create', [BookController::class, 'create'])->name('book.create');
-    Route::post('/book', [BookController::class, 'store'])->name('book.store');
-    Route::get('/book/{book}', [BookController::class, 'edit'])->name('book.edit');
-    Route::put('/book/{book}', [BookController::class, 'update'])->name('book.update');
-    Route::delete('/book/{book}', [BookController::class, 'destroy'])->name('book.destroy');
+    Route::get('/buku', [BookController::class, 'index'])->name('book.index');
+    Route::get('/buku/tambah', [BookController::class, 'create'])->name('book.create');
+    Route::post('/buku', [BookController::class, 'store'])->name('book.store');
+    Route::get('/buku/{book}', [BookController::class, 'edit'])->name('book.edit');
+    Route::put('/buku/{book}', [BookController::class, 'update'])->name('book.update');
+    Route::delete('/buku/{book}', [BookController::class, 'destroy'])->name('book.destroy');
 
-    Route::post('/book-code', [BookCodeController::class, 'store'])->name('book-code.store');
-    Route::delete('/book-code/{bookcode}', [BookCodeController::class, 'destroy'])->name('book-code.destroy');
-    Route::put('/book-code/{bookcode}', [BookCodeController::class, 'update'])->name('book-code.update');
+    Route::post('/kode-buku', [BookCodeController::class, 'store'])->name('book-code.store');
+    Route::delete('/kode-buku/{bookcode}', [BookCodeController::class, 'destroy'])->name('book-code.destroy');
+    Route::put('/kode-buku/{bookcode}', [BookCodeController::class, 'update'])->name('book-code.update');
+
+
+    // Peminjaman Buku
+    Route::get('/borrow', [BorrowController::class, 'index'])->name('borrow.index');
+    Route::post('/borrow', [BorrowController::class, 'store'])->name('borrow.store');
 });
 
 

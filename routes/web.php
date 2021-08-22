@@ -66,6 +66,7 @@ Route::middleware(['auth'])->group(function () {
     // Peminjaman Buku
     Route::get('/borrow', [BorrowController::class, 'index'])->name('borrow.index');
     Route::post('/borrow', [BorrowController::class, 'store'])->name('borrow.store');
+    Route::get('/get-book-code', [BorrowController::class, 'getBookCode'])->name('get-book-code');
 });
 
 

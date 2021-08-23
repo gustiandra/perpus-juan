@@ -75,6 +75,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/buku-favorit', [ReportController::class, 'topBook'])->name('top-book');
     Route::get('/murid-teraktif', [ReportController::class, 'topStudent'])->name('top-student');
     Route::get('/laporan', [ReportController::class, 'report'])->name('report');
+
+    Route::get('/buku-favorit/pdf', [ReportController::class, 'topBookPDF'])->name('top-book-pdf');
+    Route::get('/murid-teraktif/pdf', [ReportController::class, 'topStudentPDF'])->name('top-student-pdf');
+    Route::get('/laporan/pdf', [ReportController::class, 'reportPDF'])->name('report-pdf');
 });
 
 

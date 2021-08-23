@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('content')
+<a href="{{route('top-student-pdf')}}" target="_blank" title="Ekspor PDF" class="btn btn-secondary mb-4">
+  <i class="fas fa-print"></i> Ekspor PDF
+</a>
 <div class="card">
   <div class="card-header">
     <h3 class="card-title">Murid Teraktif</h3>
